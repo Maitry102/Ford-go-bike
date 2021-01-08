@@ -1,0 +1,777 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={R Notebook Maitry shah Midterm- Fall 2019},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{R Notebook Maitry shah Midterm- Fall 2019}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(tictoc)}
+\KeywordTok{library}\NormalTok{(ggmap)}
+\KeywordTok{library}\NormalTok{(skimr)}
+\KeywordTok{library}\NormalTok{(lubridate)}
+\KeywordTok{library}\NormalTok{(forcats)}
+\KeywordTok{library}\NormalTok{(dplyr)}
+\KeywordTok{library}\NormalTok{(Amelia)}
+\KeywordTok{library}\NormalTok{(knitr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"~/Desktop/Fall-2019/STAT-650 (R)/Midterm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fordgobike2017 <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\DataTypeTok{file=}\StringTok{"./data/2017-fordgobike-tripdata.csv"}\NormalTok{)}
+\NormalTok{fordgobike201801 <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\DataTypeTok{file=}\StringTok{"./data/201801-fordgobike-tripdata.csv"}\NormalTok{)}
+\NormalTok{fordgobike201802 <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\DataTypeTok{file=}\StringTok{"./data/201802-fordgobike-tripdata.csv"}\NormalTok{)}
+\NormalTok{fordgobike201803 <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\DataTypeTok{file=}\StringTok{"./data/201803-fordgobike-tripdata.csv"}\NormalTok{)}
+\NormalTok{fordgobike201804 <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\DataTypeTok{file=}\StringTok{"./data/201804-fordgobike-tripdata.csv"}\NormalTok{)}
+\NormalTok{fordgobike201805 <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\DataTypeTok{file=}\StringTok{"./data/201805-fordgobike-tripdata.csv"}\NormalTok{)}
+\NormalTok{fordgobike201806 <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\DataTypeTok{file=}\StringTok{"./data/201806-fordgobike-tripdata.csv"}\NormalTok{)}
+\NormalTok{fordgobike201807 <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\DataTypeTok{file=}\StringTok{"./data/201807-fordgobike-tripdata.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{glimpse}\NormalTok{(fordgobike201805)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Observations: 179,125
+## Variables: 16
+## $ duration_sec            <dbl> 56791, 52797, 43204, 67102, 58883, 228...
+## $ start_time              <dttm> 2018-05-31 21:41:51, 2018-05-31 18:39...
+## $ end_time                <dttm> 2018-06-01 13:28:22, 2018-06-01 09:19...
+## $ start_station_id        <dbl> 44, 186, 17, 106, 16, 163, 197, 61, 61...
+## $ start_station_name      <chr> "Civic Center/UN Plaza BART Station (M...
+## $ start_station_latitude  <dbl> 37.78107, 37.80132, 37.79225, 37.76324...
+## $ start_station_longitude <dbl> -122.4117, -122.2626, -122.3971, -122....
+## $ end_station_id          <dbl> 78, 338, 93, 47, 30, 212, 197, 8, 8, 8...
+## $ end_station_name        <chr> "Folsom St at 9th St", "13th St at Fra...
+## $ end_station_latitude    <dbl> 37.77372, 37.80319, 37.77041, 37.78095...
+## $ end_station_longitude   <dbl> -122.4116, -122.2706, -122.3912, -122....
+## $ bike_id                 <dbl> 1230, 3414, 2677, 4224, 3392, 1235, 15...
+## $ user_type               <chr> "Customer", "Subscriber", "Customer", ...
+## $ member_birth_year       <dbl> NA, 1983, NA, 1979, 1986, 1992, 1985, ...
+## $ member_gender           <chr> NA, "Male", NA, "Male", "Male", "Male"...
+## $ bike_share_for_all_trip <chr> "No", "No", "No", "No", "No", "No", "Y...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{glimpse}\NormalTok{(fordgobike201806)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Observations: 195,968
+## Variables: 16
+## $ duration_sec            <dbl> 59088, 60358, 63654, 50508, 51697, 367...
+## $ start_time              <dttm> 2018-06-30 23:32:44, 2018-06-30 21:48...
+## $ end_time                <dttm> 2018-07-01 15:57:33, 2018-07-01 14:34...
+## $ start_station_id        <chr> "76", "248", "23", "58", "196", "8", "...
+## $ start_station_name      <chr> "McCoppin St at Valencia St", "Telegra...
+## $ start_station_latitude  <dbl> 37.77166, 37.85596, 37.79146, 37.77662...
+## $ start_station_longitude <dbl> -122.4224, -122.2598, -122.3910, -122....
+## $ end_station_id          <chr> "95", "239", "50", "88", "272", "4", "...
+## $ end_station_name        <chr> "Sanchez St at 15th St", "Bancroft Way...
+## $ end_station_latitude    <dbl> 37.76622, 37.86881, 37.78053, 37.77003...
+## $ end_station_longitude   <dbl> -122.4311, -122.2588, -122.3903, -122....
+## $ bike_id                 <dbl> 2100, 653, 3235, 3675, 3232, 577, 1764...
+## $ user_type               <chr> "Subscriber", "Customer", "Subscriber"...
+## $ member_birth_year       <dbl> 1975, NA, 1962, 1992, 1989, NA, NA, 19...
+## $ member_gender           <chr> "Male", NA, "Female", "Male", "Female"...
+## $ bike_share_for_all_trip <chr> "Yes", "No", "No", "No", "No", "No", "...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{glimpse}\NormalTok{(fordgobike201807)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Observations: 199,222
+## Variables: 16
+## $ duration_sec            <dbl> 59989, 60232, 43864, 51522, 83380, 495...
+## $ start_time              <dttm> 2018-07-31 18:20:32, 2018-07-31 17:24...
+## $ end_time                <dttm> 2018-08-01 11:00:22, 2018-08-01 10:08...
+## $ start_station_id        <chr> "197", "77", "NULL", "114", "213", "13...
+## $ start_station_name      <chr> "El Embarcadero at Grand Ave", "11th S...
+## $ start_station_latitude  <dbl> 37.80885, 37.77351, 37.41000, 37.76448...
+## $ start_station_longitude <dbl> -122.2497, -122.4160, -121.9400, -122....
+## $ end_station_id          <chr> "181", "356", "NULL", "345", "198", "3...
+## $ end_station_name        <chr> "Grand Ave at Webster St", "Valencia S...
+## $ end_station_latitude    <dbl> 37.81138, 37.76919, 37.41000, 37.76647...
+## $ end_station_longitude   <dbl> -122.2652, -122.4223, -121.9400, -122....
+## $ bike_id                 <dbl> 1953, 3010, 4273, 1043, 1336, 697, 605...
+## $ user_type               <chr> "Customer", "Subscriber", "Subscriber"...
+## $ member_birth_year       <dbl> 1995, 1994, 1998, 1990, 1982, 1991, 19...
+## $ member_gender           <chr> "Male", "Female", "Male", "Female", "M...
+## $ bike_share_for_all_trip <chr> "No", "No", "No", "No", "No", "No", "N...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fordgobike201806 <-}\StringTok{ }\NormalTok{fordgobike201806 }\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{start_station_id =} \KeywordTok{as.integer}\NormalTok{(start_station_id),}
+               \DataTypeTok{end_station_id=} \KeywordTok{as.integer}\NormalTok{(end_station_id) )   }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: NAs introduced by coercion
+
+## Warning: NAs introduced by coercion
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fordgobike201807 <-}\StringTok{ }\NormalTok{fordgobike201807 }\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{start_station_id =} \KeywordTok{as.integer}\NormalTok{(start_station_id),}
+               \DataTypeTok{end_station_id=} \KeywordTok{as.integer}\NormalTok{(end_station_id) )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: NAs introduced by coercion
+
+## Warning: NAs introduced by coercion
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fordgobike2018 <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(fordgobike201801, fordgobike201802, fordgobike201803, fordgobike201804,}
+\NormalTok{                            fordgobike201805, fordgobike201806, fordgobike201807)}
+
+\KeywordTok{glimpse}\NormalTok{(fordgobike2018)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Observations: 1,018,386
+## Variables: 16
+## $ duration_sec            <dbl> 75284, 85422, 71576, 61076, 39966, 647...
+## $ start_time              <dttm> 2018-01-31 22:52:35, 2018-01-31 16:13...
+## $ end_time                <dttm> 2018-02-01 19:47:19, 2018-02-01 15:57...
+## $ start_station_id        <dbl> 120, 15, 304, 75, 74, 236, 110, 81, 13...
+## $ start_station_name      <chr> "Mission Dolores Park", "San Francisco...
+## $ start_station_latitude  <dbl> 37.76142, 37.79539, 37.34876, 37.77379...
+## $ start_station_longitude <dbl> -122.4264, -122.3942, -121.8948, -122....
+## $ end_station_id          <dbl> 285, 15, 296, 47, 19, 160, 134, 93, 4,...
+## $ end_station_name        <chr> "Webster St at O'Farrell St", "San Fra...
+## $ end_station_latitude    <dbl> 37.78352, 37.79539, 37.32600, 37.78095...
+## $ end_station_longitude   <dbl> -122.4312, -122.3942, -121.8771, -122....
+## $ bike_id                 <dbl> 2765, 2815, 3039, 321, 617, 1306, 3571...
+## $ user_type               <chr> "Subscriber", "Customer", "Customer", ...
+## $ member_birth_year       <dbl> 1986, NA, 1996, NA, 1991, NA, 1988, 19...
+## $ member_gender           <chr> "Male", NA, "Male", NA, "Male", NA, "M...
+## $ bike_share_for_all_trip <chr> "No", "No", "No", "No", "No", "No", "N...
+\end{verbatim}
+
+\#1.Explain what the GBFS is? Ans: GBFS is General Bikeshare Feed
+Specification: Specifical has been provided the status of the system
+movement.File also include historical data. Historical Data, including
+station information and riders information as well.\\
+\newpage \#2.Explain any difficulties you encountered getting the code
+to work. Ans: While running the code,i encountered following
+difficulties: 1. Curl method was giving error while downloading csv
+file. (May be because I am using Mac.) 2.wday function return NA for all
+the data. \newpage \#3. The analysis is to work with the 2017 and 2018
+data. How many bike rentals were there in 2017? How many bike rentals
+were there in 2018? How many bike rentals have there been since the
+beginning of Ford GoBikes? Ans: 2017- rentals : --- 519700 2018 -
+rentals: --- 1018386 Total Rentals: --- 1538086
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(fordgobike2017)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 519700     15
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fordgobike2017 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{count}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##        n
+##    <int>
+## 1 519700
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nrow}\NormalTok{(fordgobike201801) }\OperatorTok{+}\StringTok{ }\KeywordTok{nrow}\NormalTok{(fordgobike201802) }\OperatorTok{+}\StringTok{ }\KeywordTok{nrow}\NormalTok{(fordgobike201803) }\OperatorTok{+}\StringTok{ }\KeywordTok{nrow}\NormalTok{(fordgobike201804) }\OperatorTok{+}\StringTok{ }\KeywordTok{nrow}\NormalTok{(fordgobike201805) }\OperatorTok{+}\StringTok{ }\KeywordTok{nrow}\NormalTok{(fordgobike201806) }\OperatorTok{+}\StringTok{ }\KeywordTok{nrow}\NormalTok{(fordgobike201807)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1018386
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(fordgobike2018)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1018386      16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fordgobike2018 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{count}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##         n
+##     <int>
+## 1 1018386
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fordgobike <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(fordgobike2017, fordgobike2018)}
+
+\KeywordTok{dim}\NormalTok{(fordgobike)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1538086      16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fordgobike }\OperatorTok{%>%}\StringTok{ }\KeywordTok{count}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##         n
+##     <int>
+## 1 1538086
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(fordgobike)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1538086      16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fordgobike <-}\StringTok{ }\NormalTok{fordgobike }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{age =} \DecValTok{2019} \OperatorTok{-}\StringTok{ }\NormalTok{member_birth_year)}
+\NormalTok{fordgobike }\OperatorTok{%>%}\StringTok{ }\KeywordTok{count}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##         n
+##     <int>
+## 1 1538086
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(fordgobike)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1538086      17
+\end{verbatim}
+
+\newpage
+
+\#4.There is a part of the code that uses the as.integer() function for
+some reason. Explain what this function is being used for in the code.
+Ans: As shown in the code that start\_station\_id, end\_station\_ id etc
+were having character data type, so to convert other datatype into the
+integer data type, as.integer() function is being used. as.interger()
+attempts to coerce its argument to be of integer type. The answer will
+be NA unless the coercion succeeds.
+
+For the code chunk below it will convert start\_station\_id from
+character data type to interger data type and mutate to column
+start\_station\_id and similarly for the end\_station\_id it will
+convernt character type to the integer type.
+
+fordgobike201806 \textless{}- fordgobike201806 \%\textgreater{}\%
+mutate(start\_station\_id = as.integer(start\_station\_id),
+end\_station\_id= as.integer(end\_station\_id) )
+
+Example: before this code start\_station\_id apperar as ``197'' that is
+character datatype after as.interger() fucntion applied it appear as 197
+that is interger datatype.
+
+\newpage
+
+\#5. How is the Age variable created? Are there any outliers in the
+data? How many outliers have you removed? State what you think is a good
+cut off is to remove any outliers. Ans: Age variable is created by
+current year 2019 - member\_birth\_year what they have entered, by this
+difference we can create new column name age. Yes there are many
+outliers in the data: age\textgreater{}100 count is 1131 NA data count
+is 137667 Total outliers are 138798
+
+Good cutoff to remove outliers should be age\textgreater{}100.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fordgobike }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(age}\OperatorTok{>}\DecValTok{100} \OperatorTok{|}\StringTok{ }\KeywordTok{is.na}\NormalTok{(age)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(age) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(age,bike_id) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 138,798 x 2
+## # Groups:   age [12]
+##      age bike_id
+##    <dbl>   <dbl>
+##  1    NA    1094
+##  2    NA    2831
+##  3    NA    1487
+##  4    NA    1503
+##  5    NA    3125
+##  6    NA    2543
+##  7    NA    3058
+##  8    NA    3197
+##  9    NA    3452
+## 10    NA    1667
+## # ... with 138,788 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fordgobike }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(age}\OperatorTok{<}\DecValTok{100}\NormalTok{,}\KeywordTok{na.omit}\NormalTok{(age)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{age, }\DataTypeTok{color=}\NormalTok{member_gender)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{position=}\StringTok{"identity"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(member_gender }\OperatorTok{~}\StringTok{ }\NormalTok{.)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in (~age < 100) & ~na.omit(age): longer object length is not a
+## multiple of shorter object length
+\end{verbatim}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\includegraphics{Shah_Maitry_stat650_midterm_files/figure-latex/unnamed-chunk-7-1.pdf}
+\newpage \#6.In 2018, what month had the highest number of riders? What
+month had the lowest number of riders? Interpret any seasonal patterns.
+Ans: In 2018 highest number of riders in month 7- 199222 In 2018 lowest
+number of riders in month 1- 94802
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fordgobike2018 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{month=}\KeywordTok{month}\NormalTok{(start_time)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(start_time,end_time,month) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(month) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{count}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 7 x 2
+## # Groups:   month [7]
+##   month      n
+##   <dbl>  <int>
+## 1     7 199222
+## 2     6 195968
+## 3     5 179125
+## 4     4 131169
+## 5     3 111382
+## 6     2 106718
+## 7     1  94802
+\end{verbatim}
+
+\newpage
+
+\#7.What start station had the highest number of rides? That is, which
+start station was used most to start rides? Ans: Highest Number of
+riders station: San Francisco Ferry Building (Harry Bridges Plaza) -
+Count: 37401\\
+Lowest Number of Riders Station: West St at University Ave - count: 2
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fordgobike }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(start_station_name,) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{count}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 316 x 2
+## # Groups:   start_station_name [316]
+##    start_station_name                                            n
+##    <chr>                                                     <int>
+##  1 San Francisco Ferry Building (Harry Bridges Plaza)        37401
+##  2 The Embarcadero at Sansome St                             32948
+##  3 San Francisco Caltrain (Townsend St at 4th St)            32896
+##  4 San Francisco Caltrain Station 2  (Townsend St at 4th St) 31354
+##  5 Market St at 10th St                                      30931
+##  6 Berry St at 4th St                                        30594
+##  7 Montgomery St BART Station (Market St at 2nd St)          29459
+##  8 Powell St BART Station (Market St at 4th St)              27213
+##  9 Steuart St at Market St                                   25037
+## 10 Howard St at Beale St                                     24754
+## # ... with 306 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fordgobike }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(start_station_name,) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{count}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{arrange}\NormalTok{(n)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 316 x 2
+## # Groups:   start_station_name [316]
+##    start_station_name            n
+##    <chr>                     <int>
+##  1 West St at University Ave     2
+##  2 Dolores St at 22nd St        47
+##  3 10th St at University Ave    51
+##  4 Willow St at Vine St         76
+##  5 Oak St at 1st St             85
+##  6 23rd St and San Bruno Ave   107
+##  7 16th St Depot               108
+##  8 Tamien Station              115
+##  9 2nd St at Julian St         125
+## 10 Palm St at Willow St        130
+## # ... with 306 more rows
+\end{verbatim}
+
+\#8.What was the Age of the youngest rider? What was the Age of the
+oldest rider, after removing the outliers? What was the mean Age of the
+rider? What was the mean Age of the Female riders? What was the mean Age
+of the Male riders? Ans: Outliers Age limit = 100 year age of youngest
+rider: 19 Oldest Rider age: 99 mean Age of rider: 37.13175
+
+\begin{longtable}[]{@{}l@{}}
+\toprule
+\endhead
+\begin{minipage}[t]{0.11\columnwidth}\raggedright
+mean age of Female riders = 35.72202\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+mean age of Male riders = 37.58576
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ages=}\KeywordTok{subset}\NormalTok{(fordgobike,age}\OperatorTok{<}\DecValTok{101}\NormalTok{,}\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(age,member_gender))}
+\NormalTok{ages}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,399,288 x 2
+##      age member_gender
+##    <dbl> <chr>        
+##  1    32 Male         
+##  2    54 Female       
+##  3    22 Female       
+##  4    28 Female       
+##  5    29 Male         
+##  6    29 Male         
+##  7    39 Female       
+##  8    40 Male         
+##  9    31 Other        
+## 10    48 Male         
+## # ... with 1,399,278 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ages=ages[ages}\OperatorTok{$}\NormalTok{age}\OperatorTok{<}\DecValTok{101}\NormalTok{ , ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{##fordgobike %>% mutate(ages=age<100)}
+\CommentTok{##ages=subset(fordgobike,age<101,select = c(age))}
+\CommentTok{##ages=as.numeric(ages)}
+\CommentTok{##subset(fordgobike,age<101,select = c(age)) + mean(fordgobike$age,na.rm = TRUE)}
+\NormalTok{ages=}\KeywordTok{subset}\NormalTok{(fordgobike,age}\OperatorTok{<}\DecValTok{101}\NormalTok{,}\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(age,bike_id))}
+\NormalTok{ages=ages[ages}\OperatorTok{$}\NormalTok{age}\OperatorTok{<}\DecValTok{101}\NormalTok{ , ]}
+\KeywordTok{max}\NormalTok{(ages}\OperatorTok{$}\NormalTok{age,}\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 99
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(ages}\OperatorTok{$}\NormalTok{age,}\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 37.13175
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{min}\NormalTok{(ages}\OperatorTok{$}\NormalTok{age,}\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 19
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{##min(fordgobike$age,na.rm = TRUE)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ages=}\KeywordTok{subset}\NormalTok{(fordgobike,age}\OperatorTok{<}\DecValTok{101}\NormalTok{,}\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(age,member_gender))}
+\CommentTok{##ages}
+\NormalTok{ages=ages[ages}\OperatorTok{$}\NormalTok{member_gender}\OperatorTok{==}\StringTok{'Female'}\NormalTok{, ]}
+\KeywordTok{max}\NormalTok{(ages}\OperatorTok{$}\NormalTok{age,}\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 86
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(ages}\OperatorTok{$}\NormalTok{age,}\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 35.72202
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{##ages}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ages=}\KeywordTok{subset}\NormalTok{(fordgobike,age}\OperatorTok{<}\DecValTok{101}\NormalTok{,}\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(age,member_gender))}
+\CommentTok{##ages}
+\NormalTok{ages=ages[ages}\OperatorTok{$}\NormalTok{member_gender}\OperatorTok{==}\StringTok{'Male'}\NormalTok{, ]}
+\KeywordTok{max}\NormalTok{(ages}\OperatorTok{$}\NormalTok{age,}\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 99
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(ages}\OperatorTok{$}\NormalTok{age,}\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 37.58576
+\end{verbatim}
+
+\newpage
+
+\#9. Using the Amelia R package and the missmap() function determine the
+rate of missing data in the month of June. Or try the visdat package and
+the vis\_miss() function. Or check out the the naniar R package (This
+might not work on your computer if you have too little RAM.)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ages=}\KeywordTok{subset}\NormalTok{(fordgobike,}\DataTypeTok{month=}\DecValTok{6}\NormalTok{,}\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(age))}
+\NormalTok{rate=}\KeywordTok{mean}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(ages}\OperatorTok{$}\NormalTok{age),}\DataTypeTok{na.rm =} \OtherTok{FALSE}\NormalTok{)}\OperatorTok{*}\DecValTok{100}
+\NormalTok{rate}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 8.95054
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{##missmap(ages$age)}
+\end{Highlighting}
+\end{Shaded}
+
+\newpage
+
+\#10. What Type of rider uses the Ford goBikes more? Subscribers or
+Customers? Ans: Customer: 271263 Subscriber: 1266823
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fordgobike }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(user_type) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{count}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 2
+## # Groups:   user_type [2]
+##   user_type        n
+##   <chr>        <int>
+## 1 Subscriber 1266823
+## 2 Customer    271263
+\end{verbatim}
+
+
+\end{document}

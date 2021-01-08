@@ -1,0 +1,151 @@
+---
+title: "R Notebook-Project Ford-go-bike"
+output:
+  word_document: default
+  html_notebook: default
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r}
+library(tidyverse)
+library(tictoc)
+library(ggmap)
+library(skimr)
+library(lubridate)
+library(forcats)
+library(dplyr)
+library(Amelia)
+library(knitr)
+
+```
+
+\newline
+GBFS is General Bikeshare Feed Specification:
+Specifical has been provided the status of the system movement.File also include historical data.
+Historical Data, including station information and riders information as well.  
+\newpage
+#The analysis is to work with the 2017 and 2018 data. How many bike rentals were there in 2017? How many bike rentals were there in 2018? How many bike rentals have there been since the beginning of Ford GoBikes?
+\newline
+#Ans: 2017- rentals : --- 519700
+     2018 - rentals: --- 1018386
+     Total Rentals: --- 1538086
+
+
+\newpage
+#How is the Age variable created? Are there any outliers in the data? How many outliers have you removed? State what you think is a good cut off is to remove any outliers.
+\newline
+#Age variable is created by current year 2019 - member_birth_year what they have entered, by this difference we can create new column name age.
+Yes there are many outliers in the data: 
+age>100 count is 1131
+NA data count is 137667
+Total outliers are 138798
+
+Good cutoff to remove outliers should be age>100.
+
+```{r}
+fordgobike %>% filter(age>100 | is.na(age)) %>% group_by(age) %>% select(age,bike_id) 
+  
+fordgobike %>% filter(age<100,na.omit(age)) %>%
+  ggplot(aes(x=age, color=member_gender)) + 
+  geom_histogram(position="identity") + 
+  facet_grid(member_gender ~ .)
+
+```
+\newpage
+#In 2018, what month had the highest number of riders? What month had the lowest number of riders? Interpret any seasonal patterns.
+\newline
+#In 2018 highest number of riders in month 7- 199222
+     In 2018 lowest number of riders in month 1- 94802
+seasonal pattern are there in Summer from month 5 to 8
+```{r}
+fordgobike2018 %>% mutate(month=month(start_time)) %>% select(start_time,end_time,month) %>% group_by(month) %>% count() %>% 
+  arrange(desc(n))
+```
+\newpage
+#7.What start station had the highest number of rides? That is, which start station was used most to start rides?
+\newline
+#Ans: Highest Number of riders station: 
+                    San Francisco Ferry Building (Harry Bridges Plaza) - Count: 37401	
+     Lowest Number of Riders Station:
+                    West St at University Ave - count: 2
+
+```{r}
+fordgobike %>% group_by(start_station_name,) %>% count() %>% arrange(desc(n))
+
+fordgobike %>% group_by(start_station_name,) %>% count() %>% arrange(n)
+```
+#What was the Age of the youngest rider? What was the Age of the oldest rider, after removing the outliers? What was the mean Age of the rider? What was the mean Age of the Female riders? What was the mean Age of the Male riders?
+\newline
+#Ans: 
+Outliers Age limit = 100 year
+age of youngest rider: 19
+Oldest Rider age: 99
+mean Age of rider: 37.13175
+
+-------
+mean age of Female riders = 35.72202
+
+-------
+mean age of Male riders = 37.58576
+
+```{r}
+ages=subset(fordgobike,age<101,select = c(age,member_gender))
+ages
+ages=ages[ages$age<101 , ]
+```
+
+
+
+```{r}
+##fordgobike %>% mutate(ages=age<100)
+##ages=subset(fordgobike,age<101,select = c(age))
+##ages=as.numeric(ages)
+##subset(fordgobike,age<101,select = c(age)) + mean(fordgobike$age,na.rm = TRUE)
+ages=subset(fordgobike,age<101,select = c(age,bike_id))
+ages=ages[ages$age<101 , ]
+max(ages$age,na.rm = TRUE)
+mean(ages$age,na.rm = TRUE)
+min(ages$age,na.rm = TRUE)
+##min(fordgobike$age,na.rm = TRUE)
+```
+```{r}
+ages=subset(fordgobike,age<101,select = c(age,member_gender))
+##ages
+ages=ages[ages$member_gender=='Female', ]
+max(ages$age,na.rm = TRUE)
+mean(ages$age,na.rm = TRUE)
+##ages
+```
+```{r}
+ages=subset(fordgobike,age<101,select = c(age,member_gender))
+##ages
+ages=ages[ages$member_gender=='Male', ]
+max(ages$age,na.rm = TRUE)
+mean(ages$age,na.rm = TRUE)
+```
+
+\newpage
+#Using the Amelia R package and the missmap() function determine the rate of missing data in the month of June. Or try the visdat package and the vis_miss() function. Or check out the the naniar R package
+\newline
+Ans: rate of missing data in month 6 = 8.95%
+
+```{r}
+ages=subset(fordgobike,month=6,select = c(age))
+rate=mean(is.na(ages$age))*100
+rate
+missmap(ages)
+```
+\newpage
+#What Type of rider uses the Ford goBikes more? Subscribers or Customers?
+\newline
+#Ans:
+    Customer : 271263
+    Subscriber : 1266823	
+    
+  Subscriber riders uses the ford go bike more. 
+```{r}
+fordgobike %>% group_by(user_type) %>% count() %>% arrange(desc(n))
+```
+
